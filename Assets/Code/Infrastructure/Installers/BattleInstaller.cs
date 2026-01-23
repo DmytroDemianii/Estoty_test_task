@@ -35,6 +35,7 @@ namespace Code.Infrastructure.Installers
 
 		private void BindEnemyServices()
 		{
+			Container.BindInterfacesTo<DifficultyService>().AsSingle();
 			Container.BindInterfacesTo<EnemyFactory>().AsSingle();
 			Container.BindInterfacesTo<EnemyProvider>().AsSingle();
 			Container.BindInterfacesTo<EnemyDeathTracker>().AsSingle();

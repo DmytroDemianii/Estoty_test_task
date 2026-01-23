@@ -16,15 +16,18 @@ namespace Code.Gameplay.Characters.Enemies.Services
 		private readonly IConfigsService _configsService;
 		private readonly IInstantiateService _instantiateService;
 		private readonly IIdentifierService _identifiers;
+		private readonly IDifficultyService _difficultyService;
 
 		public EnemyFactory(
 			IConfigsService configsService, 
 			IInstantiateService instantiateService,
-			IIdentifierService identifiers)
+			IIdentifierService identifiers,
+			IDifficultyService difficultyService)
 		{
 			_configsService = configsService;
 			_instantiateService = instantiateService;
 			_identifiers = identifiers;
+			_difficultyService = difficultyService;
 		}
 		
 		public Enemy CreateEnemy(EnemyId id, Vector3 at, Quaternion rotation)
@@ -32,18 +35,30 @@ namespace Code.Gameplay.Characters.Enemies.Services
 			EnemyConfig enemyConfig = _configsService.GetEnemyConfig(id);
 			Enemy enemy = _instantiateService.InstantiatePrefabForComponent(enemyConfig.Prefab, at, rotation);
 			
-			enemy.GetComponent<Id>()
-				.Setup(_identifiers.Next());
+			float hp = _difficultyService.GetModifiedStat(enemyConfig.Health, StatType.MaxHealth);
+			Log("Enemy name: " + enemyConfig.name + " HP: " + hp);
+			float damage = _difficultyService.GetModifiedStat(enemyConfig.Damage, StatType.Damage);
+			Log("Enemy name: " + enemyConfig.name + " DMG: " + damage);
+
+			enemy.GetComponent<Id>().Setup(_identifiers.Next());
 			
 			enemy.GetComponent<Stats>()
-				.SetBaseStat(StatType.MaxHealth, enemyConfig.Health)
+				.SetBaseStat(StatType.MaxHealth, hp)
 				.SetBaseStat(StatType.MovementSpeed, enemyConfig.MovementSpeed)
-				.SetBaseStat(StatType.Damage, enemyConfig.Damage);
+				.SetBaseStat(StatType.Damage, damage);
 
 			enemy.GetComponent<Health>()
-				.Setup(enemyConfig.Health, enemyConfig.Health);
+				.Setup(hp, hp);
 			
 			return enemy;
+		}
+
+		private void Log(string message)
+		{
+			if (_difficultyService.IsDebugMode)
+			{
+				Debug.Log(message);
+			}
 		}
 	}
 }

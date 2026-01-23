@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "estoty-test-survivors-v5.sln"
+    "dotnet.defaultSolution": "Estoty_test_task.sln"
 }

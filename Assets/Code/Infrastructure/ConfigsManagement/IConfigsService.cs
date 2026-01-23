@@ -9,6 +9,7 @@ namespace Code.Infrastructure.ConfigsManagement
 	public interface IConfigsService
 	{
 		HeroConfig HeroConfig { get; }
+		DifficultyConfig DifficultyConfig { get; }
 		void Load();
 		EnemyConfig GetEnemyConfig(EnemyId id);
 		PickUpConfig GetPickUpConfig(PickUpId id);

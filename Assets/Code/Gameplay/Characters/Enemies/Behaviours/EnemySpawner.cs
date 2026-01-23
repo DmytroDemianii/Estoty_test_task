@@ -16,6 +16,7 @@ namespace Code.Gameplay.Characters.Enemies.Behaviours
 		private IEnemyFactory _enemyFactory;
 
 		private float _timer;
+		private EnemyId[] _enemyIds;
 
 		private const float SpawnInterval = 3f;
 		private const float SpawnDistanceGap = 0.5f;
@@ -27,10 +28,16 @@ namespace Code.Gameplay.Characters.Enemies.Behaviours
 			_heroProvider = heroProvider;
 			_cameraProvider = cameraProvider;
 
-			_timer = SpawnInterval * 0.9f;
+			InitializeSpawner();
 		}
 
-		private void Update()
+        private void InitializeSpawner()
+        {
+            _timer = SpawnInterval * 0.9f;
+			_enemyIds = new EnemyId[] { EnemyId.Walker, EnemyId.Skeleton, EnemyId.Boss };
+        }
+
+        private void Update()
 		{
 			Spawning();
 		}
@@ -47,7 +54,7 @@ namespace Code.Gameplay.Characters.Enemies.Behaviours
 			if (_timer >= SpawnInterval)
 			{
 				Vector2 randomSpawnPosition = RandomSpawnPosition(hero.transform.position);
-				_enemyFactory.CreateEnemy(EnemyId.Walker, at: randomSpawnPosition, Quaternion.identity);
+				_enemyFactory.CreateEnemy(_enemyIds.PickRandom(), at: randomSpawnPosition, Quaternion.identity);
 				_timer = 0;
 			}
 		}

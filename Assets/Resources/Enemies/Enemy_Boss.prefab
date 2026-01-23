@@ -52,9 +52,13 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 1544975445, guid: d33598d781682e049a53a0a13104ef29, type: 3}
+    - target: {fileID: 6717920689030321824, guid: ce0a2add9af9a47c6b8ed2e38ad917cc, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 22100000, guid: 8d1d920724ffb8a409ce0e458dc4b7a9, type: 2}
     - target: {fileID: 7994187728987921737, guid: ce0a2add9af9a47c6b8ed2e38ad917cc, type: 3}
       propertyPath: m_Name
-      value: Enemy_Boss Variant
+      value: Enemy_Boss
       objectReference: {fileID: 0}
     - target: {fileID: 8764176963405705182, guid: ce0a2add9af9a47c6b8ed2e38ad917cc, type: 3}
       propertyPath: m_LocalScale.x
@@ -67,5 +71,29 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7994187728987921737, guid: ce0a2add9af9a47c6b8ed2e38ad917cc, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -3575958822836940408}
   m_SourcePrefab: {fileID: 100100000, guid: ce0a2add9af9a47c6b8ed2e38ad917cc, type: 3}
+--- !u!1 &8046575113096801090 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7994187728987921737, guid: ce0a2add9af9a47c6b8ed2e38ad917cc, type: 3}
+  m_PrefabInstance: {fileID: 97427779640800779}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &-3575958822836940408
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8046575113096801090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 727ec8cd43fe4797a8c9b36094c3997a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _possibleLootDrops:
+  - Id: 1
+    Amount: 1
+    Chance: 0.1

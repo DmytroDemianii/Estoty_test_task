@@ -1,6 +1,7 @@
 using Code.Gameplay.Characters.Enemies.Services;
 using Code.Gameplay.Characters.Heroes.Services;
 using Code.Infrastructure.UIManagement;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
@@ -11,6 +12,7 @@ namespace Code.UI
 	{
 		[SerializeField] private Slider _healthBar;
 		[SerializeField] private Text _killedEnemiesText;
+		[SerializeField] private TextMeshProUGUI _enemyBoostedText;
 		
 		private IHeroProvider _heroProvider;
 		private IEnemyDeathTracker _enemyDeathTracker;

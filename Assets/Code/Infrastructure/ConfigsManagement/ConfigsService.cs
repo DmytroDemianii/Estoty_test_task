@@ -15,6 +15,7 @@ namespace Code.Infrastructure.ConfigsManagement
 
 		private Dictionary<EnemyId, EnemyConfig> _enemiesById = new();
 		private Dictionary<PickUpId, PickUpConfig> _pickupsById = new();
+		public DifficultyConfig DifficultyConfig { get; private set; }
 
 		public HeroConfig HeroConfig { get; private set; }
 
@@ -25,6 +26,7 @@ namespace Code.Infrastructure.ConfigsManagement
 		
 		public void Load()
 		{
+			LoadDifficultyConfig();
 			LoadHeroConfig();
 			LoadEnemyConfigs();
 			LoadPickUpConfigs();
@@ -45,6 +47,11 @@ namespace Code.Infrastructure.ConfigsManagement
 		{
 			var enemyConfigs = _assets.LoadAssetsFromResources<EnemyConfig>("Configs/Enemies");
 			_enemiesById = enemyConfigs.ToList().ToDictionary(x => x.Id, x => x);
+		}
+
+		private void LoadDifficultyConfig()
+		{
+			DifficultyConfig = _assets.LoadAssetFromResources<DifficultyConfig>("Configs/DifficultyConfig/DifficultyConfig");
 		}
 
 		public EnemyConfig GetEnemyConfig(EnemyId id)
