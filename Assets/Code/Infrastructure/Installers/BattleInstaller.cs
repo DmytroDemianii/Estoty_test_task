@@ -1,6 +1,8 @@
+using Code.Gameplay.Abilities.Services;
 using Code.Gameplay.Cameras.Services;
 using Code.Gameplay.Characters.Enemies.Services;
 using Code.Gameplay.Characters.Heroes.Services;
+using Code.Gameplay.Experience.Services;
 using Code.Gameplay.PickUps.Services;
 using Code.Gameplay.Projectiles.Services;
 using Zenject;
@@ -11,11 +13,19 @@ namespace Code.Infrastructure.Installers
 	{
 		public override void InstallBindings()
 		{
+			BindLevelServices();
 			BindHeroServices();
 			BindEnemyServices();
 			BindCameraServices();
 			BindCombatServices();
 			BindPickupServices();
+			
+		}
+
+		private void BindLevelServices()
+		{
+			Container.BindInterfacesTo<ExperienceService>().AsSingle();
+			Container.BindInterfacesTo<AbilityService>().AsSingle();
 		}
 
 		private void BindPickupServices()

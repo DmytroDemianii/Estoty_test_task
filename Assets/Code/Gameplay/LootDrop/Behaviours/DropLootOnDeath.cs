@@ -39,15 +39,31 @@ namespace Code.Gameplay.LootDrop.Behaviours
 		}
 
 		private void HandleDeath()
-		{
-			foreach (LootDropInfo possibleLootDrop in _possibleLootDrops)
-			{
-				if (UnityEngine.Random.Range(0f, 1f) <= possibleLootDrop.Chance)
-				{
-					_pickUpFactory.Create(possibleLootDrop.Id, transform.position);
-				}
-			}
-		}
+        {
+            LootDropInfo selectedType = null;
+            int winnersCount = 0;
+
+            foreach (LootDropInfo drop in _possibleLootDrops)
+            {
+                if (UnityEngine.Random.Range(0f, 1f) <= drop.Chance)
+                {
+                    winnersCount++;
+
+                    if (UnityEngine.Random.Range(0, winnersCount) == 0) // Make sure that only 1 type of item will drop
+                    {
+                        selectedType = drop;
+                    }
+                }
+            }
+
+            if (selectedType != null)
+            {
+                for (int i = 0; i < selectedType.Amount; i++)
+                {
+                    _pickUpFactory.Create(selectedType.Id, transform.position);
+                }
+            }
+        }
 
 		[Serializable]
 		private class LootDropInfo

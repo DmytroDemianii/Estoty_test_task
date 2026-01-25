@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
+using Code.Gameplay.Abilities.Configs;
 using Code.Gameplay.Characters.Enemies;
 using Code.Gameplay.Characters.Enemies.Configs;
 using Code.Gameplay.Characters.Heroes.Configs;
+using Code.Gameplay.Experience.Configs;
 using Code.Gameplay.PickUps;
 using Code.Gameplay.PickUps.Configs;
 using Code.Infrastructure.AssetManagement;
@@ -16,10 +18,13 @@ namespace Code.Infrastructure.ConfigsManagement
 		private Dictionary<EnemyId, EnemyConfig> _enemiesById = new();
 		private Dictionary<PickUpId, PickUpConfig> _pickupsById = new();
 		public DifficultyConfig DifficultyConfig { get; private set; }
+		public ExperienceConfig ExperienceConfig { get; private set; }
 
 		public HeroConfig HeroConfig { get; private set; }
 
-		public ConfigsService(IAssetsService assets)
+        public List<AbilityConfig> Abilities { get; private set; }
+
+        public ConfigsService(IAssetsService assets)
 		{
 			_assets = assets;
 		}
@@ -30,6 +35,8 @@ namespace Code.Infrastructure.ConfigsManagement
 			LoadHeroConfig();
 			LoadEnemyConfigs();
 			LoadPickUpConfigs();
+			LoadExperienceConfig();
+			LoadAbilityConfigs();
 		}
 
 		private void LoadPickUpConfigs()
@@ -43,6 +50,12 @@ namespace Code.Infrastructure.ConfigsManagement
 			HeroConfig = _assets.LoadAssetFromResources<HeroConfig>("Configs/HeroConfig");
 		}
 
+		private void LoadAbilityConfigs()
+		{
+			var abilityConfigs = _assets.LoadAssetsFromResources<AbilityConfig>("Configs/Abilities");
+			Abilities = abilityConfigs.ToList();
+		}
+
 		private void LoadEnemyConfigs()
 		{
 			var enemyConfigs = _assets.LoadAssetsFromResources<EnemyConfig>("Configs/Enemies");
@@ -52,6 +65,11 @@ namespace Code.Infrastructure.ConfigsManagement
 		private void LoadDifficultyConfig()
 		{
 			DifficultyConfig = _assets.LoadAssetFromResources<DifficultyConfig>("Configs/DifficultyConfig/DifficultyConfig");
+		}
+
+		private void LoadExperienceConfig()
+		{
+			ExperienceConfig = _assets.LoadAssetFromResources<ExperienceConfig>("Configs/ExperienceConfig");
 		}
 
 		public EnemyConfig GetEnemyConfig(EnemyId id)

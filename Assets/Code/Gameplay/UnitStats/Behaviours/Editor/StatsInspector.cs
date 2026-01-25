@@ -35,36 +35,47 @@ namespace Code.Gameplay.UnitStats.Behaviours.Editor
 				return;
 			}
 
-			EditorGUILayout.LabelField("Base Stats", EditorStyles.boldLabel);
+            EditorGUILayout.Space();
+            EditorGUILayout.HelpBox("Base: Editable value | Total: Current value with modifiers", MessageType.Info);
+            EditorGUILayout.Space();
 
-			EditorGUI.BeginChangeCheck();
+            foreach (StatType statType in Enum.GetValues(typeof(StatType)))
+            {
+                if (statType == StatType.Unknown) continue;
 
-			foreach (StatType statType in Enum.GetValues(typeof(StatType)))
-			{
-				if (statType == StatType.Unknown) continue;
+                if (_baseStats.TryGetValue(statType, out float baseValue))
+                {
+                    float totalValue = _stats.GetStat(statType);
+                    
+                    EditorGUILayout.BeginHorizontal();
+                    
+                    EditorGUI.BeginChangeCheck();
+                    float newBaseValue = EditorGUILayout.FloatField(statType.ToString(), baseValue);
+                    if (EditorGUI.EndChangeCheck())
+                    {
+                        _stats.SetBaseStat(statType, newBaseValue);
+                        EditorUtility.SetDirty(_stats);
+                    }
 
-				if (_baseStats.TryGetValue(statType, out float currentValue))
-				{
-					float newValue = EditorGUILayout.FloatField(statType.ToString(), currentValue);
+                    GUI.enabled = false;
+                    EditorGUILayout.LabelField($"→ Total: {totalValue:F1}", GUILayout.Width(100));
+                    GUI.enabled = true;
 
-					if (!Mathf.Approximately(newValue, currentValue))
-					{
-						_stats.SetBaseStat(statType, newValue);
-						EditorUtility.SetDirty(_stats);
-					}
-				}
-				else
-				{
-					EditorGUILayout.LabelField($"{statType}: Not initialized in _baseStats");
-				}
-			}
+                    EditorGUILayout.EndHorizontal();
+                }
+            }
 
-			if (EditorGUI.EndChangeCheck())
-			{
-				_baseStats = (Dictionary<StatType, float>) _baseStatsField.GetValue(_stats);
-			}
+            if (GUI.changed)
+            {
+                _baseStats = (Dictionary<StatType, float>)_baseStatsField.GetValue(_stats);
+            }
 
-			serializedObject.ApplyModifiedProperties();
-		}
-	}
+            serializedObject.ApplyModifiedProperties();
+            
+            if (Application.isPlaying)
+            {
+                Repaint();
+            }
+        }
+    }
 }

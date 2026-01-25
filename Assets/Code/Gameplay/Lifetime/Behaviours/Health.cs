@@ -1,6 +1,7 @@
 using System;
 using Code.Gameplay.UnitStats;
 using Code.Gameplay.UnitStats.Behaviours;
+using ModestTree;
 using UnityEngine;
 
 namespace Code.Gameplay.Lifetime.Behaviours
@@ -61,7 +62,9 @@ namespace Code.Gameplay.Lifetime.Behaviours
 		{
 			if (statType == StatType.MaxHealth)
 			{
+				int needToHeal = (int)(value - MaxHealth);
 				MaxHealth = value;
+				Heal(needToHeal);
 			}
 		}
 	}

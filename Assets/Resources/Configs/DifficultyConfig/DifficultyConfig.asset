@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 123a6740e52c1d94a92b98c0baef963c, type: 3}
   m_Name: DifficultyConfig
   m_EditorClassIdentifier: 
-  IntervalInSeconds: 15
+  IntervalInSeconds: 60
   IncreaseHp: 1
   HpIncreasePercent: 10
   IncreaseDamage: 1

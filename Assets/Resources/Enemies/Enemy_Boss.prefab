@@ -52,6 +52,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 1544975445, guid: d33598d781682e049a53a0a13104ef29, type: 3}
+    - target: {fileID: 2921398661942180734, guid: ce0a2add9af9a47c6b8ed2e38ad917cc, type: 3}
+      propertyPath: m_Color.a
+      value: 0.54901963
+      objectReference: {fileID: 0}
     - target: {fileID: 6717920689030321824, guid: ce0a2add9af9a47c6b8ed2e38ad917cc, type: 3}
       propertyPath: m_Controller
       value: 
@@ -97,3 +101,6 @@ MonoBehaviour:
   - Id: 1
     Amount: 1
     Chance: 0.1
+  - Id: 2
+    Amount: 3
+    Chance: 0.5

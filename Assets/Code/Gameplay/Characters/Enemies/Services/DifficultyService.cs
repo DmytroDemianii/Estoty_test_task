@@ -35,7 +35,8 @@ namespace Code.Gameplay.Characters.Enemies.Services
             if (intervalsPassed > _lastLoggedInterval)
             {
                 _lastLoggedInterval = intervalsPassed;
-                Debug.Log($"<color=#FF8000>[Difficulty Up]</color> Level: {intervalsPassed} | Time: {timeSinceStart:F1}s | HP: +{config.HpIncreasePercent * intervalsPassed}% | DMG: +{config.DamageIncreasePercent * intervalsPassed}%");
+                if(config.DebugMode)
+                    Debug.Log($"<color=#FF8000>[Difficulty Up]</color> Level: {intervalsPassed} | Time: {timeSinceStart:F1}s | HP: +{config.HpIncreasePercent * intervalsPassed}% | DMG: +{config.DamageIncreasePercent * intervalsPassed}%");
             }
 
             if (intervalsPassed <= 0) return baseValue;
