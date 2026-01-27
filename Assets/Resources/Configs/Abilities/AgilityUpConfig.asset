@@ -17,4 +17,4 @@ MonoBehaviour:
   Icon: {fileID: -966295699, guid: d71a3dc7aa20fad4f9a99fc76a9254ba, type: 3}
   IsReplicable: 1
   TargetStat: 5
-  BoostAmount: 20
+  BoostAmount: 0.5

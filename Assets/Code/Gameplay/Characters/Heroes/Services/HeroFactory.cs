@@ -43,15 +43,12 @@ namespace Code.Gameplay.Characters.Heroes.Services
 				.SetBaseStat(StatType.MovementSpeed, heroConfig.MovementSpeed)
 				.SetBaseStat(StatType.ProjectileSpeed, heroConfig.ProjectileSpeed)
 				.SetBaseStat(StatType.VisionRange, heroConfig.VisionRange)
+				.SetBaseStat(StatType.RotationSpeed, heroConfig.GunRotationSpeed)
 				.SetBaseStat(StatType.ShootCooldown, heroConfig.ShootCooldown)
 				.SetBaseStat(StatType.Damage, heroConfig.Damage);
 
 			hero.GetComponent<Health>()
 				.Setup(heroConfig.Health, heroConfig.Health);
-			
-			hero.GetComponent<GunOwner>().OwnedGun
-				.GetComponent<Stats>()
-				.SetBaseStat(StatType.RotationSpeed, heroConfig.GunRotationSpeed);
 			
 			_heroProvider.SetHero(hero);
 			

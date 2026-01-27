@@ -14,6 +14,10 @@ namespace Code.Gameplay.Movement.Behaviours
 		public void SetDirection(Vector2 direction)
 		{
 			_direction = direction.normalized;
+			if(_direction == Vector2.zero)
+			{
+				Destroy(gameObject);
+			}
 		}
 	}
 }

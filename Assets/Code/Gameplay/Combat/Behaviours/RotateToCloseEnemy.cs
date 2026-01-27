@@ -6,19 +6,18 @@ using UnityEngine;
 
 namespace Code.Gameplay.Combat.Behaviours
 {
-	[RequireComponent(typeof(Stats))]
 	public class RotateToCloseEnemy : MonoBehaviour, IAimDirectionProvider
 	{
 		[SerializeField] private VisionSight _visionSight;
+		[SerializeField] private Stats _stats;
 
-		private Stats _stats;
 		private Health _health;
 		
 		public Vector2 Direction { get; private set; }
+		private Vector2 _currentVelocity;
 
 		private void Awake()
 		{
-			_stats = GetComponent<Stats>();
 			_health = GetComponent<Health>();
 		}
 
@@ -49,14 +48,21 @@ namespace Code.Gameplay.Combat.Behaviours
 			if (closestEnemy != null)
 			{
 				float rotationSpeed = _stats.GetStat(StatType.RotationSpeed);
-				Vector3 direction = (closestEnemy.transform.position - transform.position).normalized;
-				Direction = Vector2.Lerp(transform.right, direction, rotationSpeed * Time.deltaTime);
+				Vector3 targetDir = (closestEnemy.transform.position - transform.position).normalized;
+
+				float smoothTime = 1f / Mathf.Max(rotationSpeed, 0.1f);
+				Direction = Vector2.SmoothDamp(Direction, targetDir, ref _currentVelocity, smoothTime);
 				
-				if (Direction.sqrMagnitude >= 0.01f)
-				{
-					float angle = Mathf.Atan2(Direction.y, Direction.x) * Mathf.Rad2Deg;
-					transform.rotation = Quaternion.Euler(0, 0, angle);
-				}
+				ApplyRotation();
+			}
+		}
+
+		private void ApplyRotation()
+		{
+			if (Direction.sqrMagnitude >= 0.01f)
+			{
+				float angle = Mathf.Atan2(Direction.y, Direction.x) * Mathf.Rad2Deg;
+				transform.rotation = Quaternion.Euler(0, 0, angle);
 			}
 		}
 	}
