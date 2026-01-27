@@ -14,5 +14,6 @@ namespace Code.Gameplay.Characters.Heroes.Configs
 		public float Damage = 10f;
 		public float VisionRange = 10f;
 		public float ShootCooldown = 1f;
+		public float HealthPotionsModifier = 1f;
 	}
 }

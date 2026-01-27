@@ -30,6 +30,11 @@ namespace Code.Gameplay.Projectiles.Services
 		
 		public Projectile CreateProjectile(Vector3 at, Vector2 direction, TeamType teamType, float damage, float movementSpeed)
 		{
+			if (direction == Vector2.zero)
+			{
+				return null;
+			}
+			
 			var prefab = _assetsService.LoadAssetFromResources<Projectile>("Projectiles/Projectile");
 			Projectile projectile = _instantiateService.InstantiatePrefabForComponent(prefab, at, Quaternion.FromToRotation(Vector3.up, direction));
 			

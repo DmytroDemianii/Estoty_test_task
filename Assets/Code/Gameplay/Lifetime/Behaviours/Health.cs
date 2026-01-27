@@ -50,12 +50,21 @@ namespace Code.Gameplay.Lifetime.Behaviours
 			}
 		}
 
-		public void Heal(float healAmount)
+		public void Heal(float healAmount, bool ignoreModifiers = false)
 		{
-			float change = Mathf.Clamp(healAmount, 0, MaxHealth - CurrentHealth);
-			CurrentHealth += change;
+			if (IsDead) return;
+
+			float finalHeal = healAmount;
+			float modifier = 1;
+
+			if (ignoreModifiers == false)
+			{
+				modifier = _stats.GetStat(StatType.HealthPotionsModifier);
+				finalHeal = healAmount * (modifier <= 0 ? 1 : modifier);
+			}
 			
-			OnHealthChanged?.Invoke(change);
+			//Debug.Log($"Healing for {finalHeal} (Base: {healAmount}, Modifier: {modifier})");
+            CurrentHealth = Mathf.Min(CurrentHealth + finalHeal, _stats.GetStat(StatType.MaxHealth));
 		}
 
 		private void HandleStatChanged(StatType statType, float value)
@@ -64,7 +73,7 @@ namespace Code.Gameplay.Lifetime.Behaviours
 			{
 				int needToHeal = (int)(value - MaxHealth);
 				MaxHealth = value;
-				Heal(needToHeal);
+				Heal(needToHeal, true);
 			}
 		}
 	}

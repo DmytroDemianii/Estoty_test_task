@@ -45,7 +45,8 @@ namespace Code.Gameplay.Characters.Heroes.Services
 				.SetBaseStat(StatType.VisionRange, heroConfig.VisionRange)
 				.SetBaseStat(StatType.RotationSpeed, heroConfig.GunRotationSpeed)
 				.SetBaseStat(StatType.ShootCooldown, heroConfig.ShootCooldown)
-				.SetBaseStat(StatType.Damage, heroConfig.Damage);
+				.SetBaseStat(StatType.Damage, heroConfig.Damage)
+				.SetBaseStat(StatType.HealthPotionsModifier, heroConfig.HealthPotionsModifier);
 
 			hero.GetComponent<Health>()
 				.Setup(heroConfig.Health, heroConfig.Health);

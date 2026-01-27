@@ -10,5 +10,6 @@ namespace Code.Gameplay.UnitStats
 		RotationSpeed = 5, 
 		ProjectileSpeed = 6,
 		ShootCooldown = 7,
+		HealthPotionsModifier = 8
 	}
 }
