@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Code.Gameplay.Abilities.Configs;
 using Code.Gameplay.Characters.Heroes.Services;
+using Code.Gameplay.Projectiles.Services;
 using Code.Gameplay.UnitStats;
 using Code.Infrastructure.ConfigsManagement;
 using UnityEngine;
@@ -13,20 +14,39 @@ namespace Code.Gameplay.Abilities.Services
     {
         private IConfigsService _configs;
         private IHeroProvider _heroProvider;
+        private IProjectileFactory _projectileFactory;
         
         private readonly List<AbilityId> _acquiredOneTimeAbilities = new();
 
         [Inject]
-        private void Construct(IHeroProvider heroProvider, IConfigsService configs)
+        private void Construct(
+            IHeroProvider heroProvider,
+            IConfigsService configs,
+            IProjectileFactory projectileFactory
+            )
         {
             _heroProvider = heroProvider;
             _configs = configs;
+            _projectileFactory = projectileFactory;
         }
 
         public void ApplyAbility(AbilityId id)
         {
             AbilityConfig config = _configs.Abilities.First(x => x.Id == id);
             if (!config.IsReplicable) _acquiredOneTimeAbilities.Add(id);
+            
+            switch (id)
+            {
+                case AbilityId.OrbitingProjectiles:
+
+                    float damage = _heroProvider.Stats.GetStat(StatType.Damage);
+                    float speed = _heroProvider.Stats.GetStat(StatType.MovementSpeed);
+                    float radius = _heroProvider.Stats.GetStat(StatType.VisionRange) / 3f;    
+
+                    _projectileFactory.CreateOrbitingShield(_heroProvider.OrbitingPivot, damage, speed, radius);
+                    
+                    return;
+            }
 
             StatModifier modifier = new StatModifier(config.TargetStat, config.BoostAmount);
             _heroProvider.Stats.AddStatModifier(modifier);

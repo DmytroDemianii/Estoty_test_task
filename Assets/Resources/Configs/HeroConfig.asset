@@ -16,7 +16,8 @@ MonoBehaviour:
   Health: 100
   MovementSpeed: 5
   ProjectileSpeed: 10
-  GunRotationSpeed: 1.8
+  GunRotationSpeed: 2
   Damage: 10
   VisionRange: 10
   ShootCooldown: 1
+  HealthPotionsModifier: 1

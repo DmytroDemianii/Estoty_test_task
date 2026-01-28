@@ -1,4 +1,5 @@
 using Code.Gameplay.Lifetime.Behaviours;
+using Code.Gameplay.Movement.Behaviours;
 using Code.Gameplay.UnitStats.Behaviours;
 
 namespace Code.Gameplay.Characters.Heroes.Services
@@ -8,6 +9,7 @@ namespace Code.Gameplay.Characters.Heroes.Services
 		Behaviours.Hero Hero { get; }
 		Health Health { get; }
 		Stats Stats { get; }
+		OrbitingPivot OrbitingPivot { get; }
 		void SetHero(Behaviours.Hero hero);
 	}
 }

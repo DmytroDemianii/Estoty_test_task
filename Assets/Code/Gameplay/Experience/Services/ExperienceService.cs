@@ -22,8 +22,6 @@ namespace Code.Gameplay.Experience.Services
         private void Construct(IConfigsService configs)
 		{
 			_experienceConfig = configs.ExperienceConfig;
-            Debug.Log("config is null: " + (_experienceConfig == null));
-
 			ExperienceToNextLevel = _experienceConfig.GetExperienceForLevel(CurrentLevel);
 		}
 
@@ -54,7 +52,6 @@ namespace Code.Gameplay.Experience.Services
             
             OnLevelUp?.Invoke();
             Debug.Log($"Leveled up to {CurrentLevel}!");
-            //_windowService.Open(Window.LevelUpWindow);
         }
 
         
