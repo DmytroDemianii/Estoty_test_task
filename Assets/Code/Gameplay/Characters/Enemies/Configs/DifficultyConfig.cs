@@ -6,13 +6,15 @@ namespace Code.Gameplay.Characters.Enemies.Configs
     public class DifficultyConfig : ScriptableObject
     {
         [Range(1, 120)]
-        public int IntervalInSeconds = 60;
+        public int IntervalInSeconds = 60; // seconds before difficulty increases
         
         public bool IncreaseHp;
         public float HpIncreasePercent = 10f;
-        
+
         public bool IncreaseDamage;
         public float DamageIncreasePercent = 10f;
+
+        public float EnemySpawnInterval = 3f;
         [Space (1)]
         public bool DebugMode;
     }

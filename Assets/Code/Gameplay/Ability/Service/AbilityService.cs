@@ -3,6 +3,7 @@ using System.Linq;
 using Code.Gameplay.Abilities.Configs;
 using Code.Gameplay.Characters.Heroes.Services;
 using Code.Gameplay.Projectiles.Services;
+using Code.Gameplay.Teams;
 using Code.Gameplay.UnitStats;
 using Code.Infrastructure.ConfigsManagement;
 using UnityEngine;
@@ -38,13 +39,16 @@ namespace Code.Gameplay.Abilities.Services
             switch (id)
             {
                 case AbilityId.OrbitingProjectiles:
-
                     float damage = _heroProvider.Stats.GetStat(StatType.Damage);
                     float speed = _heroProvider.Stats.GetStat(StatType.MovementSpeed);
                     float radius = _heroProvider.Stats.GetStat(StatType.VisionRange) / 3f;    
 
                     _projectileFactory.CreateOrbitingShield(_heroProvider.OrbitingPivot, damage, speed, radius);
                     
+                    return;
+
+                case AbilityId.BouncingProjectiles:
+                    _projectileFactory.MakeBouncingProjectile(true);
                     return;
             }
 

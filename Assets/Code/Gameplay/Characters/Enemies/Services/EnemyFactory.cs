@@ -36,9 +36,9 @@ namespace Code.Gameplay.Characters.Enemies.Services
 			Enemy enemy = _instantiateService.InstantiatePrefabForComponent(enemyConfig.Prefab, at, rotation);
 			
 			float hp = _difficultyService.GetModifiedStat(enemyConfig.Health, StatType.MaxHealth);
-			Log("Enemy name: " + enemyConfig.name + " HP: " + hp);
+			Log("Enemy spawned, name: " + enemyConfig.name + " HP: " + hp);
 			float damage = _difficultyService.GetModifiedStat(enemyConfig.Damage, StatType.Damage);
-			Log("Enemy name: " + enemyConfig.name + " DMG: " + damage);
+			Log("Enemy spawned, name: " + enemyConfig.name + " DMG: " + damage);
 
 			enemy.GetComponent<Id>().Setup(_identifiers.Next());
 			

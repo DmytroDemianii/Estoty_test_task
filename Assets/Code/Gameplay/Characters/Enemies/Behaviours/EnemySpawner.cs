@@ -1,8 +1,10 @@
 using Code.Common.Extensions;
 using Code.Gameplay.Cameras.Services;
+using Code.Gameplay.Characters.Enemies.Configs;
 using Code.Gameplay.Characters.Enemies.Services;
 using Code.Gameplay.Characters.Heroes.Behaviours;
 using Code.Gameplay.Characters.Heroes.Services;
+using Code.Infrastructure.ConfigsManagement;
 using UnityEngine;
 using Zenject;
 using Random = UnityEngine.Random;
@@ -14,19 +16,27 @@ namespace Code.Gameplay.Characters.Enemies.Behaviours
 		private ICameraProvider _cameraProvider;
 		private IHeroProvider _heroProvider;
 		private IEnemyFactory _enemyFactory;
+		private IConfigsService _configsService;
 
 		private float _timer;
+		public float SpawnInterval => _configsService.DifficultyConfig.EnemySpawnInterval;
 		private EnemyId[] _enemyIds;
 
-		private const float SpawnInterval = 3f;
 		private const float SpawnDistanceGap = 0.5f;
 
 		[Inject]
-		private void Construct(ICameraProvider cameraProvider, IHeroProvider heroProvider, IEnemyFactory enemyFactory)
+		private void Construct
+		(
+			ICameraProvider cameraProvider,
+			IHeroProvider heroProvider,
+			IEnemyFactory enemyFactory,
+			IConfigsService configsService
+		)
 		{
 			_enemyFactory = enemyFactory;
 			_heroProvider = heroProvider;
 			_cameraProvider = cameraProvider;
+			_configsService = configsService;
 
 			InitializeSpawner();
 		}

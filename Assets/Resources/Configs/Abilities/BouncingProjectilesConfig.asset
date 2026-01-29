@@ -9,12 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee049b31b5d61234ba4ed34b0df6672d, type: 3}
-  m_Name: ExperienceConfig
+  m_Script: {fileID: 11500000, guid: 333c64a7040ebdb4e9625329443fb5b0, type: 3}
+  m_Name: BouncingProjectilesConfig
   m_EditorClassIdentifier: 
-  ExperienceToNextLevel:
-  - 2
-  - 3
-  - 4
-  - 5
-  - 6
+  Id: 2
+  Title: Bouncing Projectiles
+  Icon: {fileID: -537537479, guid: 0d5e657ee5a074e4baa53d5b248a01d2, type: 3}
+  IsReplicable: 0
+  TargetStat: 0
+  BoostAmount: 0

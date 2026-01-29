@@ -9,5 +9,6 @@ namespace Code.Gameplay.Projectiles.Services
 	{
 		Projectile CreateProjectile(Vector3 at, Vector2 direction, TeamType teamType, float damage, float movementSpeed);
 		void CreateOrbitingShield(OrbitingPivot heroTransform, float damage, float movementSpeed, float radius);
+		void MakeBouncingProjectile(bool isBouncing);
 	}
 }

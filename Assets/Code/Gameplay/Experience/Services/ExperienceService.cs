@@ -22,7 +22,7 @@ namespace Code.Gameplay.Experience.Services
         private void Construct(IConfigsService configs)
 		{
 			_experienceConfig = configs.ExperienceConfig;
-			ExperienceToNextLevel = _experienceConfig.GetExperienceForLevel(CurrentLevel);
+			UpdateExperienceThreshold();
 		}
 
         public void Tick()
@@ -37,7 +37,7 @@ namespace Code.Gameplay.Experience.Services
         {
             CurrentExperience += amount;
             
-            if (CurrentExperience >= ExperienceToNextLevel)
+            while (CurrentExperience >= ExperienceToNextLevel && CurrentLevel < _experienceConfig.MaxLevel)
             {
                 LevelUp();
             }
@@ -50,10 +50,13 @@ namespace Code.Gameplay.Experience.Services
             CurrentExperience -= ExperienceToNextLevel;
             CurrentLevel++;
             
+            UpdateExperienceThreshold();
+            
             OnLevelUp?.Invoke();
-            Debug.Log($"Leveled up to {CurrentLevel}!");
+            Debug.Log($"Leveled up to {CurrentLevel}! Next level requires: {ExperienceToNextLevel}");
         }
 
-        
+        private void UpdateExperienceThreshold()
+            => ExperienceToNextLevel = _experienceConfig.GetExperienceForLevel(CurrentLevel);
     }
 }

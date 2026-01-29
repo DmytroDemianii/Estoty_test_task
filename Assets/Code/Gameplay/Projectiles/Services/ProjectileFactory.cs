@@ -18,6 +18,8 @@ namespace Code.Gameplay.Projectiles.Services
 		private readonly IIdentifierService _identifiers;
 		private readonly IAssetsService _assetsService;
 
+		private bool _bouncingProjectile = false;
+		
 		public ProjectileFactory(
 			IInstantiateService instantiateService,
 			IIdentifierService identifiers,
@@ -27,21 +29,27 @@ namespace Code.Gameplay.Projectiles.Services
 			_identifiers = identifiers;
 			_assetsService = assetsService;
 		}
-		
+
+		public void MakeBouncingProjectile(bool isBouncing)
+		{
+			_bouncingProjectile = isBouncing;
+		}
+
 		public Projectile CreateProjectile(Vector3 at, Vector2 direction, TeamType teamType, float damage, float movementSpeed)
         {
-            if (direction == Vector2.zero)
-            {
-                return null;
-            }
+            if (direction == Vector2.zero) return null;
+
+			if (_bouncingProjectile)
+			{
+				return CreateBouncingProjectile(at, direction, teamType, damage, movementSpeed);
+			}
 
             var prefab = _assetsService.LoadAssetFromResources<Projectile>("Projectiles/Projectile");
             Projectile projectile = _instantiateService.InstantiatePrefabForComponent(prefab, at, Quaternion.FromToRotation(Vector3.up, direction));
 
             SetupCommonComponents(projectile, teamType, damage, movementSpeed);
 
-            projectile.GetComponent<IMovementDirectionProvider>()
-                .SetDirection(direction);
+            projectile.GetComponent<IMovementDirectionProvider>().SetDirection(direction);
 
             return projectile;
         }
@@ -63,6 +71,23 @@ namespace Code.Gameplay.Projectiles.Services
 				float visualAngle = (i * 120f) + 90f;
 				projectile.transform.localRotation = Quaternion.Euler(0, 0, visualAngle);
 			}
+		}
+
+		private Projectile CreateBouncingProjectile(Vector3 at, Vector2 direction, TeamType teamType, float damage, float movementSpeed)
+		{
+			if (direction == Vector2.zero) return null;
+
+			var prefab = _assetsService.LoadAssetFromResources<Projectile>("Projectiles/BouncingProjectile");
+			Projectile projectile = _instantiateService.InstantiatePrefabForComponent(prefab, at, Quaternion.FromToRotation(Vector3.up, direction));
+
+			SetupCommonComponents(projectile, teamType, damage, movementSpeed);
+
+			projectile.GetComponent<IMovementDirectionProvider>().SetDirection(direction);
+			
+			if (projectile.TryGetComponent(out ProjectileBouncer bouncer))
+				bouncer.Setup(teamType);
+
+			return projectile;
 		}
 
         private void SetupCommonComponents(Projectile projectile, TeamType teamType, float damage, float movementSpeed)

@@ -1,3 +1,4 @@
+using Code.Gameplay.Movement.Behaviours;
 using UnityEngine;
 
 namespace Code.Gameplay.Lifetime.Behaviours
@@ -8,9 +9,11 @@ namespace Code.Gameplay.Lifetime.Behaviours
 		[SerializeField] private float _delay;
 		
 		private IDamageApplier _damageApplier;
+		private ProjectileBouncer _bouncer;
 
 		private void Awake()
 		{
+			_bouncer = TryGetComponent<ProjectileBouncer>(out var bouncer) ? bouncer : null;
 			_damageApplier = GetComponent<IDamageApplier>();
 		}
 
@@ -26,6 +29,9 @@ namespace Code.Gameplay.Lifetime.Behaviours
 
 		private void HandleDamageApplied(Health _)
 		{
+			if (_bouncer != null && _bouncer.TryBounce()) 
+				return;
+			
 			Destroy(gameObject, _delay);
 		}
 	}

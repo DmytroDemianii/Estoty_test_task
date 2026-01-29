@@ -3,11 +3,11 @@ namespace Code.Gameplay.Abilities
     public enum AbilityId
     {
         Unknown = 0,
-        HealthPotionsBoost = 1, // Один раз
-        BouncingProjectiles = 2, // Один раз
-        OrbitingProjectiles = 3, // Один раз
-        AgilityUp = 4,           // Багаторазово
-        HealthUp = 5,            // Багаторазово
-        DamageUp = 6             // Багаторазово
+        HealthPotionsBoost = 1,
+        BouncingProjectiles = 2,
+        OrbitingProjectiles = 3, 
+        AgilityUp = 4,
+        HealthUp = 5,
+        DamageUp = 6
     }
 }

@@ -9,13 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 123a6740e52c1d94a92b98c0baef963c, type: 3}
-  m_Name: DifficultyConfig
+  m_Script: {fileID: 11500000, guid: ee049b31b5d61234ba4ed34b0df6672d, type: 3}
+  m_Name: ExperiencePerLevelConfig
   m_EditorClassIdentifier: 
-  IntervalInSeconds: 60
-  IncreaseHp: 1
-  HpIncreasePercent: 10
-  IncreaseDamage: 1
-  DamageIncreasePercent: 10
-  EnemySpawnInterval: 3
-  DebugMode: 0
+  ExperienceToNextLevel:
+  - 10
+  - 15
+  - 20
+  - 25
+  - 30
