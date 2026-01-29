@@ -69,7 +69,7 @@ namespace Code.Infrastructure.ConfigsManagement
 
 		private void LoadExperienceConfig()
 		{
-			ExperienceConfig = _assets.LoadAssetFromResources<ExperienceConfig>("Configs/ExperienceConfig");
+			ExperienceConfig = _assets.LoadAssetFromResources<ExperienceConfig>("Configs/ExperiencePerLevelConfig");
 		}
 
 		public EnemyConfig GetEnemyConfig(EnemyId id)

@@ -19,5 +19,5 @@ MonoBehaviour:
   GunRotationSpeed: 2
   Damage: 10
   VisionRange: 10
-  ShootCooldown: 1
+  ShootCooldown: 0.8
   HealthPotionsModifier: 1
